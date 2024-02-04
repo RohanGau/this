@@ -96,3 +96,101 @@ arrowFunction.x();
 // this inside class, constructor 
 
 
+const student = {
+  firstName: "Rohan",
+  lastName: "Kumar",
+  // printName: function () {
+  //   console.log(this.firstName + " " + this.lastName);
+  // },
+};
+
+function printName(hometown, state) {
+  console.log(
+    this.firstName + " " + this.lastName + " from " + hometown + " , " + state
+  );
+}
+
+const student2 = {
+  firstName: "Jagrit",
+  lastName: "Dhrolia",
+};
+
+// student.printName();
+
+// function borrowing
+printName.call(student, "Ghaziabad", "Uttar Pradesh");
+
+// throw error
+// let printMethod = printName.call(student, "Ghaziabad", "Uttar Pradesh");
+// Uncaught TypeError: printMethod is not a function
+
+printName.apply(student2, ["Ghaziabad", "Uttar Pradesh"]);
+
+// bind method
+let printMethod = printName.bind(student2, "Ghaziabad", "Uttar Pradesh");
+
+console.log("printMethod :", printMethod);
+printMethod();
+
+function Person(first_name, last_name) {
+  this.firstName = first_name;
+  this.lastName = last_name;
+  this.display = function () {
+    console.log(`Name : ${this.firstName} ${this.lastName}`);
+  };
+}
+
+// function Person2(first_name) {
+//   this.firstName = first_name;
+// }
+// console.log("this.firstName :", this.firstName); // undefined in above case
+
+const person = new Person("Amit", "kumar");
+// person.display();
+
+// Person2("random");
+
+function foo() {
+  console.log("this.a :", this.a);
+}
+
+const object = {
+  a: 20,
+  foo: foo,
+};
+
+// object.foo();
+
+const numbers = {
+  numberA: 10,
+  numberB: 20,
+  sum: function () {
+    // let that = this;
+    console.log("sum this === numbers", this === numbers);
+    function calculate() {
+      console.log("calculate this === numbers", this === numbers);
+      return this.numberA + this.numberB;
+    }
+    // const calculate = () => {
+    //   console.log("calculate this === numbers", this === numbers);
+    //   return this.numberA + this.numberB;
+    // };
+    return calculate();
+  },
+};
+
+// console.log("numbers.sum() : ", numbers.sum());
+
+class Planet {
+  constructor(name) {
+    this.name = name;
+  }
+
+  getName() {
+    console.log(this === earth);
+    return this.name;
+  }
+}
+
+const earth = new Planet("earth");
+earth.getName();
